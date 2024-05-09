@@ -1,0 +1,12 @@
+.mypy_cache
+__pycache__
+models
+models/*
+*.keras
+hist
+model
+dataset
+augmented_data
+splits
+test_imgs
+UPLOADS
