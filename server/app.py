@@ -6,7 +6,6 @@ from datetime import datetime
 import os
 from flask import Flask, request, jsonify
 import tensorflow as tf
-import uvicorn
 print(tf.__version__)
 
 
