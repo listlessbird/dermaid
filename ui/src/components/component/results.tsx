@@ -57,7 +57,11 @@ export function Results({
                     {key}
                   </span>
                   <span className="text-gray-500 dark:text-gray-400">
-                    {(result?.probabilities[key]).toFixed(2)}%
+                    {
+                      //@ts-ignore
+                      result?.probabilities[key]
+                    }
+                    %
                   </span>
                 </div>
               ))}
