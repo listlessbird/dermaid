@@ -67,11 +67,7 @@ export function WebcamCapture() {
   return (
     <>
       {results && (
-        <Results
-          image={imageSrc!}
-          conditions={results}
-          modalState={showResults}
-        />
+        <Results image={imageSrc!} result={results} modalState={showResults} />
       )}
 
       <div className="relative overflow-hidden aspect-video w-full md:w-[400px]">

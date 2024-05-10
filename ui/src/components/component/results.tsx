@@ -6,14 +6,28 @@ import { useState } from "react"
 
 export function Results({
   image,
-  conditions,
+  result: result,
   modalState,
 }: {
   image?: string
-  conditions: { [key: string]: number }
+  result: { probabilities?: { [key: string]: number }; message: string }
   modalState: boolean
 }) {
   const [open, setOpen] = useState(modalState)
+
+  if (!result.probabilities) {
+    return (
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="w-full max-w-2xl rounded-sm">
+          <div className="flex flex-col items-center gap-4">
+            {/* <CrossIcon className="h-6 w-6 text-red-500" /> */}
+            <h2 className="text-2xl font-semibold">{result.message}</h2>
+          </div>
+        </DialogContent>
+      </Dialog>
+    )
+  }
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="w-full max-w-2xl">
@@ -37,13 +51,13 @@ export function Results({
               </h2>
             </div>
             <div className="grid grid-cols-2 gap-4 w-full">
-              {Object.keys(conditions).map((key) => (
+              {Object.keys(result.probabilities).map((key) => (
                 <div className="flex flex-col items-start gap-1" key={key}>
                   <span className="font-medium truncate text-pretty">
                     {key}
                   </span>
                   <span className="text-gray-500 dark:text-gray-400">
-                    {(conditions[key] * 100).toFixed(2)}%
+                    {(result?.probabilities[key]).toFixed(2)}%
                   </span>
                 </div>
               ))}

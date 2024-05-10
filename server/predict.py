@@ -36,6 +36,7 @@ def predict_class(fname):
     result.sort(reverse=True, key=lambda x: x[1])
 
     preds = {k: v for (k, v) in result}
+    print(preds)
     K.backend.clear_session()
     return preds
 

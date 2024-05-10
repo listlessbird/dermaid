@@ -37,11 +37,16 @@ def get_image():
         max_val = max(dict_dis, key=dict_dis.get)
         if dict_dis[max_val] <= 38:
             print('healthy')
-            return jsonify({'message': 'Healthy Skin Detected'})
+            return jsonify({'message': 'Healthy Skin Detected?', 'probabilities': dict_dis})
         else:
             print('Done')
-            return jsonify({'message': str(max_val), 'percentage': str(dict_dis[max_val])})
+            return jsonify({
+                'probabilities': dict_dis,
+                'message': str(max_val),
+            })
+            # return jsonify({'message': str(max_val), 'percentage': str(dict_dis[max_val])})
     else:
+        print("Looks like the image is not of the skin")
         return jsonify({'message': 'Please upload the image of the Infected Area'})
 
 
