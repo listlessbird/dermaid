@@ -11,3 +11,4 @@ scikit-image
 seaborn
 tf-keras
 opencv-python
+flask
