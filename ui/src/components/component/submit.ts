@@ -1,16 +1,12 @@
 'use server'
 
-export async function submit(image: string) {
+export async function submit(formData: FormData) {
 
-    console.log("Action submit",  {image})
-    // console.log("form data", formData)
-
-    const fd = new FormData()
-    fd.append("file", image)
-
-    const res = await fetch("http://localhost:5000/predict", {
+    console.log("submit data", formData)
+    console.log("Using the API URL", process.env.API_URL!)
+    const res = await fetch(process.env.API_URL!, {
         method: "POST",
-        body: fd,
+        body: formData,
     })
 
     if (!res.ok) {

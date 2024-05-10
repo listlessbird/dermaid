@@ -11,14 +11,19 @@ import { useAppContext } from "./context"
 const videoConstraints = {
   width: 1280,
   height: 720,
-  facingMode: "user",
+  facingMode: "environment",
 }
 
 export function WebcamCapture() {
   const [hasSubmitted, setHasSubmitted] = useState(false)
   //   const [imageSrc, setImageSrc] = useState<string | null>(null)
 
-  const { image: imageSrc, setImage: setImageSrc } = useAppContext()
+  const {
+    image: imageSrc,
+    setImage: setImageSrc,
+    imageFile,
+    setImageFile,
+  } = useAppContext()
   console.log({ imageSrc })
   const [results, setResults] = useState<{ [key: string]: number } | null>(null)
 
@@ -26,8 +31,12 @@ export function WebcamCapture() {
 
   const webcamRef = useRef<Webcam>(null)
 
-  const capture = useCallback(() => {
-    const imageSrc = webcamRef.current?.getScreenshot()
+  const capture = useCallback(async () => {
+    const imageSrc = webcamRef.current?.getScreenshot() as string
+    let file = await (await fetch(imageSrc)).blob()
+    file = new File([file], "image.jpg", { type: "image/jpeg" }) as File
+    setImageFile(file as File)
+    console.log(imageSrc)
     if (imageSrc) {
       setImageSrc(imageSrc)
     }
@@ -43,16 +52,17 @@ export function WebcamCapture() {
     console.log("submitting")
     setHasSubmitted(true)
     setResults(null)
-    if (!imageSrc) return
+    if (!imageFile) return
+    console.log("submitting", imageFile)
 
-    const submitWithImg = submitAction.bind(null, imageSrc)
-
-    const submissionRes = await submitWithImg()
+    const fd = new FormData()
+    fd.append("image", imageFile)
+    const submissionRes = await submitAction(fd)
     console.log(submissionRes)
     setResults(submissionRes)
     setHasSubmitted(false)
     setShowResults(true)
-  }, [hasSubmitted])
+  }, [hasSubmitted, imageFile, setResults, setHasSubmitted, setShowResults])
 
   return (
     <>

@@ -46,8 +46,9 @@ def get_image():
 
 
 if __name__ == '__main__':
-    # app.run(port=8000, debug=True)
-    config = uvicorn.Config("app:app", port=5000,
-                            log_level="info", host="0.0.0.0")
-    server = uvicorn.Server(config)
-    server.run()
+    app.run(port=5000, debug=True)
+    # config = uvicorn.Config("app:app", port=5000,
+    #                         log_level="info", host="0.0.0.0")
+    # server = uvicorn.Server(config)
+    # server.run()
+    # uvicorn.run(app, host="0.0.0.0", port=5000)
