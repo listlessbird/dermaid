@@ -2,9 +2,9 @@
 __pycache__
 models
 models/*
-*.keras
+# *.keras
 hist
-model
+# model
 dataset
 augmented_data
 splits
