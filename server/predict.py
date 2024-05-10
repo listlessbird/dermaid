@@ -23,7 +23,7 @@ classes = {
     6: 'Not a skin disease'
 }
 
-model = tf.keras.models.load_model("models/first_train/max_acc/model.keras")
+model = tf.keras.models.load_model("model/model.keras")
 
 
 def predict_class(fname):
