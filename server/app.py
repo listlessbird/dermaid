@@ -1,9 +1,7 @@
-import cv2
 from predict import predict_class
 from skin_detection import check_skin
 import numpy as np
 from datetime import datetime
-import os
 from flask import Flask, request, jsonify
 import tensorflow as tf
 print(tf.__version__)
