@@ -25,7 +25,10 @@ export function WebcamCapture() {
     setImageFile,
   } = useAppContext()
   console.log({ imageSrc })
-  const [results, setResults] = useState<{ [key: string]: number } | null>(null)
+  const [results, setResults] = useState<{
+    message: string
+    probabilities?: { [key: string]: number }
+  } | null>(null)
 
   const [showResults, setShowResults] = useState(false)
 
