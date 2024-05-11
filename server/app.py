@@ -23,13 +23,19 @@ def get_image():
     photo = request.files['image']
     photo.save(filename)
     print('Image Saved..')
-    if check_skin(filename):
-        preds_dict = predict_class(filename)
+    preds_dict = predict_class(filename)
 
-        dict_dis = sorted(preds_dict.items(), key=lambda x: x[1], reverse=True)
-        dict_dis = dict(sorted(preds_dict.items(),
-                        key=lambda x: x[1], reverse=True)[:3])
-        print(dict_dis)
+    dict_dis = sorted(preds_dict.items(), key=lambda x: x[1], reverse=True)
+    dict_dis = dict(sorted(preds_dict.items(),
+                    key=lambda x: x[1], reverse=True)[:3])
+    print(dict_dis)
+    if check_skin(filename):
+        # preds_dict = predict_class(filename)
+
+        # dict_dis = sorted(preds_dict.items(), key=lambda x: x[1], reverse=True)
+        # dict_dis = dict(sorted(preds_dict.items(),
+        #                 key=lambda x: x[1], reverse=True)[:3])
+        # print(dict_dis)
 
         max_val = max(dict_dis, key=dict_dis.get)
         if dict_dis[max_val] <= 38:
